@@ -1,0 +1,16 @@
+{
+  "errorHint": {
+    "mandatory": "This field is required.",
+    "email": "Please enter a valid email address.",
+    "dateOrder": "Start date must be before end date.",
+    "fullName": "Please enter your first and last name.",
+    "minLength": "This field must be at least {{min}} characters long.",
+    "maxLength": "This field cannot exceed {{max}} characters."
+  },
+  "login": {
+    "or": "or",
+    "title": "Connect with your doctor in minutes",
+    "loginToAccount": "Login into your account",
+    "signupToAccount": "Sign in and start today!"
+  }
+}

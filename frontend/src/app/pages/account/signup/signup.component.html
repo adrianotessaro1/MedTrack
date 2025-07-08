@@ -1,0 +1,13 @@
+<app-default-login-layout title="login.signupToAccount" primaryButtonText="Signup Now" secondaryButtonText="Login Now"
+    (submit)="submit()" (navigate)="navigate()" [disablePrimaryButton]="signupForm.invalid">
+    <form [formGroup]="signupForm">
+        <app-primary-input formControlName="name" iconName="app:email" inputName="name" inputType="text"
+            label="Full Name" inputPlaceholder="Enter your full name..."></app-primary-input>
+        <app-primary-input formControlName="email" iconName="app:email" inputName="email" inputType="email"
+            label="Email" inputPlaceholder="Enter your email..."></app-primary-input>
+        <app-primary-input formControlName="password" iconName="app:padlock" inputType="password" label="Password"
+            inputPlaceholder="Enter your password..."></app-primary-input>
+        <app-primary-input formControlName="passwordConfirm" inputName="passwordConfirm" iconName="app:padlock" inputType="password"
+            label="Confirm your Password" inputPlaceholder="Confirm your password..."></app-primary-input>
+    </form>
+</app-default-login-layout>

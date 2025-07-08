@@ -1,0 +1,28 @@
+<div class="input-wrapper">
+    <label [for]="inputName()">{{label()}}</label>
+    <div class="input-content">
+        <input [type]="inputType()" [value]="value" [placeholder]="inputPlaceholder()" (input)="onInput($event)">
+        <div class="icon">
+            <mat-icon [svgIcon]="iconName()"></mat-icon>
+        </div>
+    </div>
+    @for (errorKey of errorKeys; track errorKey) {
+    <span class="error-hint" *ngIf="control!.hasError(errorKey) && (control?.touched || control?.dirty)">
+
+        @if (errorKey === 'minlength') {
+        {{
+        errorMap[errorKey]
+        | translate:{ min: control?.errors?.['minlength']?.requiredLength }
+        }}
+        } @else if (errorKey === 'maxlength') {
+        {{
+        errorMap[errorKey]
+        | translate:{ max: control?.errors?.['maxlength']?.requiredLength }
+        }}
+        } @else {
+        {{
+        errorMap[errorKey] | translate }}
+        }
+    </span>
+    }
+</div>

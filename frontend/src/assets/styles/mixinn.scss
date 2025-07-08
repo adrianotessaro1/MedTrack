@@ -1,0 +1,50 @@
+@use "./variables.scss" as v;
+@use "sass:map";
+
+$breakpointsList: (
+  "phone-small": 360px,
+  "phone": 400px,
+  "phone-wide": 480px,
+  "phablet": 560px,
+  "tablet-small": 600px,
+  "tablet": 768px,
+  "tablet-wide": 1024px,
+  "desktop-wide": 1366px,
+  "desktop-wide-lg": 1920px,
+);
+
+// Mixin for media queries using the new Sass module API
+@mixin mq($width, $type: max, $considerMax: null) {
+  @if map.has-key($breakpointsList, $width) {
+    $width: map.get($breakpointsList, $width);
+    @if ($type == max and $considerMax == null) {
+      $width: $width;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint `#{$breakpoint}` in mq(); available keys: #{map.keys($breakpointsList)}";
+  }
+}
+
+@mixin iconSize($size, $maxSize: null) {
+  font-size: $size;
+
+  @if ($maxSize) {
+    width: #{$size + 2px} !important;
+    height: #{$size + 2px} !important;
+    max-width: #{$size + 2px};
+    max-height: #{$size + 2px};
+    line-height: #{$size + 2px};
+  } @else {
+    width: auto !important;
+    height: auto !important;
+    line-height: $size;
+  }
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}

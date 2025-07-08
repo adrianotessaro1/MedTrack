@@ -1,0 +1,16 @@
+@use "./../../../../assets/styles/variables.scss" as v;
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-m;
+  margin-bottom: v.$space-l;
+
+  span {
+    font-size: v.$font-xs;
+    color: v.$secondary-color;
+    text-decoration: underline;
+    text-align: end;
+  }
+}

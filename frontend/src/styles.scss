@@ -1,0 +1,24 @@
+@use "./assets/styles/variables.scss" as v;
+@use "./assets/styles/common-classes.scss";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+h2 {
+  font-size: v.$font-l;
+  line-height: v.$font-l * v.$line-height-s;
+}

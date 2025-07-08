@@ -1,0 +1,313 @@
+@use "sass:map";
+@use "./variables" as v;
+@use "./mixinn.scss" as mix;
+
+// Layout and Alignment
+.limited {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.main-bg {
+  background: v.$main-bg;
+}
+
+.secondary-bg {
+  background: v.$secondary-bg;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.inline {
+  display: flex;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.gap-xxxs {
+  gap: v.$space-xxs;
+}
+
+.gap-xxs {
+  gap: v.$space-xxs;
+}
+.gap-xs {
+  gap: v.$space-xs;
+}
+.gap-s {
+  gap: v.$space-s;
+}
+.gap-sm {
+  gap: v.$space-sm;
+}
+.gap-m {
+  gap: v.$space-m;
+}
+.gap-l {
+  gap: v.$space-l;
+}
+.gap-xl {
+  gap: v.$space-xl;
+}
+.gap-xxl {
+  gap: v.$space-xxl;
+}
+.gap-xxxl {
+  gap: v.$space-xxxl;
+}
+.gap-xxxxl {
+  gap: v.$space-xxxxl;
+}
+
+// Typography
+
+.fs-xxs {
+  font-size: v.$font-xxs;
+} // 0.75rem
+
+.fs-xs {
+  font-size: v.$font-xs;
+} // 0.875rem
+
+.fs-s {
+  font-size: v.$font-s;
+} // 1rem
+
+.fs-sm {
+  font-size: v.$font-sm;
+} // 1.125rem
+
+.fs-m {
+  font-size: v.$font-m;
+} // 1.25rem
+
+.fs-l {
+  font-size: v.$font-l;
+} // 1.5rem
+
+.fs-xl {
+  font-size: v.$font-xl;
+} // 2rem
+
+.fs-xxl {
+  font-size: v.$font-xxl;
+} // 2.5rem
+
+.fs-xxxl {
+  font-size: v.$font-xxxl;
+} // 3rem
+
+.fs-xxxxl {
+  font-size: v.$font-xxxxl;
+} // 4rem
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.txt-justified {
+  text-align: justify;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+// Buttons and Actions
+.btn {
+  color: v.$color-text-primary !important;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  gap: 10px;
+  min-width: 125px;
+  position: relative;
+
+  // medium (default)
+  font-size: 1rem;
+  padding: 12px 50px 12px 20px;
+  height: 48px;
+
+  @include mix.mq("desktop-wide", min) {
+    font-size: 1.25rem;
+    line-height: 1.25rem * v.$line-height-s;
+  }
+
+  mat-icon {
+    position: absolute;
+    min-width: 20px;
+    width: 20px;
+    color: v.$color-text-primary;
+    top: 12px;
+    right: 20px;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  &.primary {
+    background-color: v.$primary-900;
+    &:hover:not(:disabled) {
+      box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+        0 15px 30px rgba(166, 173, 201, 0.2);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    transition: 0.25s ease;
+    border: v.$secondary-400 1px solid;
+
+    &:hover:not(:disabled) {
+      border: none;
+      background-color: v.$secondary-500;
+      color: v.$color-text-primary !important;
+      box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+        0 15px 30px rgba(166, 173, 201, 0.2);
+    }
+  }
+}
+
+.to-point {
+  cursor: pointer !important;
+}
+
+// Spacing and Margins
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-top-100 {
+  margin-top: 100px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px;
+}
+
+.margin-bottom-50 {
+  margin-bottom: 50px;
+}
+
+.margin-bottom-100 {
+  margin-bottom: 100px;
+}
+
+.margin-left-auto {
+  margin-left: auto;
+}
+
+.margin-right-auto {
+  margin-right: auto;
+}
+
+.divider-line {
+  border: 1px solid v.$secondary-bg;
+}
+
+.box-shadow-card {
+  border-radius: 10px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5) !important;
+  border: none !important;
+  padding: 50px;
+  width: fit-content;
+}
+
+// Table Styles
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--light-text);
+
+  thead {
+    background-color: var(--off-white-light);
+    color: var(--light-text);
+  }
+
+  thead th {
+    padding: 10px;
+    text-align: center;
+  }
+
+  tbody td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+mat-icon {
+  width: 24px !important;
+  height: 24px !important;
+  color: #ffffff !important;
+  z-index: 10000;
+}
+
+span.error-hint {
+  position: absolute;
+  bottom: -22px;
+  right: 2px;
+  font-size: 12px;
+  line-height: 24px;
+  color: v.$red;
+}

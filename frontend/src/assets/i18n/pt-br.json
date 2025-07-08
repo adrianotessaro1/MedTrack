@@ -1,0 +1,16 @@
+{
+  "errorHint": {
+    "mandatory": "Este campo é obrigatório.",
+    "email": "Por favor, insira um endereço de e-mail válido.",
+    "dateOrder": "A data inicial deve ser anterior à data final.",
+    "fullName": "Por favor, insira nome e sobrenome.",
+    "minLength": "Este campo deve ter pelo menos {{min}} caracteres.",
+    "maxLength": "Este campo não pode exceder {{max}} caracteres."
+  },
+  "login": {
+    "or": "ou",
+    "title": "Conecte-se com seu médico em minutos",
+    "loginToAccount": "Faça login na sua conta",
+    "signupToAccount": "Inscreva-se e comece hoje!"
+  }
+}
