@@ -1,13 +1,58 @@
 <app-default-login-layout title="login.signupToAccount" primaryButtonText="Signup Now" secondaryButtonText="Login Now"
-    (submit)="submit()" (navigate)="navigate()" [disablePrimaryButton]="signupForm.invalid">
-    <form [formGroup]="signupForm">
-        <app-primary-input formControlName="name" iconName="app:email" inputName="name" inputType="text"
-            label="Full Name" inputPlaceholder="Enter your full name..."></app-primary-input>
-        <app-primary-input formControlName="email" iconName="app:email" inputName="email" inputType="email"
-            label="Email" inputPlaceholder="Enter your email..."></app-primary-input>
-        <app-primary-input formControlName="password" iconName="app:padlock" inputType="password" label="Password"
-            inputPlaceholder="Enter your password..."></app-primary-input>
-        <app-primary-input formControlName="passwordConfirm" inputName="passwordConfirm" iconName="app:padlock" inputType="password"
-            label="Confirm your Password" inputPlaceholder="Confirm your password..."></app-primary-input>
-    </form>
+    (submit)="submit()" (navigate)="navigate()" [disablePrimaryButton]="securityForm.invalid">
+    <mat-horizontal-stepper [linear]="true" #stepper>
+        <!-- STEP 0 - PATIENT OR DOCTOR -->
+        <mat-step>
+            <span>Are you a patient or a doctor?</span>
+            <div class="buttons-container">
+                <button class="btn primary">PATIENT</button>
+                <button class="btn secondary">DOCTOR</button>
+            </div>
+        </mat-step>
+        <!-- STEP 1 - Personal Information-->
+        <mat-step>
+            <form [formGroup]="personalInfoForm">
+                <app-primary-input formControlName="name" iconName="app:person" inputName="name" inputType="text"
+                    label="Full Name" inputPlaceholder="Enter your full name..." [withLabel]="true"></app-primary-input>
+                <app-primary-input formControlName="dateOfBirth" iconName="app:calendar" inputName="dateOfBirth"
+                    inputType="text" label="Date of Birth" inputPlaceholder="Enter your date of birth..."
+                    [withLabel]="true"></app-primary-input>
+                <app-primary-input formControlName="phone" iconName="app:phone" inputName="phone" inputType="text"
+                    label="Phone Number" inputPlaceholder="Enter your phone number..."
+                    [withLabel]="true"></app-primary-input>
+            </form>
+        </mat-step>
+        <!-- STEP 2 - Patient / Doctor Specific Info-->
+        <mat-step *ngIf="isDoctor">
+            <form [formGroup]="doctorInfoForm">
+                <app-primary-input formControlName="email" iconName="app:mail" inputName="email" inputType="email"
+                    label="Email" inputPlaceholder="Enter your email..." [withLabel]="true"></app-primary-input>
+                <app-primary-input formControlName="CRM" iconName="app:medical_info" inputName="CRM" inputType="text"
+                    label="CRM" inputPlaceholder="Enter your CRM..." [withLabel]="true"></app-primary-input>
+                <app-primary-input formControlName="specialty" iconName="app:medical_services" inputName="specialty"
+                    inputType="text" label="Full Name" inputPlaceholder="Enter your full name..." [withLabel]="true"
+                    [withAutocomplete]="true" AutocompleteGroup="specialty"></app-primary-input>
+            </form>
+        </mat-step>
+        <mat-step *ngIf="!isDoctor">
+            <form [formGroup]="patientInfoForm">
+                <app-primary-input formControlName="email" iconName="app:mail" inputName="email" inputType="email"
+                    label="Email" inputPlaceholder="Enter your email..." [withLabel]="true"></app-primary-input>
+                <app-primary-input formControlName="gender" iconName="app:account_box" inputName="gender"
+                    inputType="text" label="Gender" inputPlaceholder="Enter your gender..." [withLabel]="true"
+                    [withAutocomplete]="true" AutocompleteGroup="gender"></app-primary-input>
+            </form>
+        </mat-step>
+        <!-- STEP 3 - Password (Security)-->
+        <mat-step>
+            <form [formGroup]="securityForm">
+                <app-primary-input formControlName="password" iconName="app:lock" inputName="password"
+                    inputType="password" label="Password" inputPlaceholder="Enter your password..."
+                    [withLabel]="true"></app-primary-input>
+                <app-primary-input [withLabel]="false" formControlName="passwordConfirm" inputName="passwordConfirm"
+                    iconName="app:lock" inputType="password" label="Confirm your Password"
+                    inputPlaceholder="Confirm your password..."></app-primary-input>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
 </app-default-login-layout>

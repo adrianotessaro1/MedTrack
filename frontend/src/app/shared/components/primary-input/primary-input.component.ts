@@ -1,4 +1,13 @@
-import { Component, forwardRef, inject, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  forwardRef,
+  inject,
+  input,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { SharedModule } from '../../shared.module';
 import {
   AbstractControl,
@@ -9,6 +18,10 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { single } from 'rxjs';
+import { TranslationConstants } from '../../services/translation.service';
+import { MatAutocomplete } from '@angular/material/autocomplete';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 type InputTypes = 'text' | 'email' | 'password';
 
@@ -26,15 +39,34 @@ type InputTypes = 'text' | 'email' | 'password';
   templateUrl: './primary-input.component.html',
   styleUrl: './primary-input.component.scss',
 })
-export class PrimaryInputComponent implements ControlValueAccessor {
+export class PrimaryInputComponent implements ControlValueAccessor, OnInit {
   // By implementing the ControlValueAcessor, this component becomes a drop-in form control
 
-  public readonly inputType = input<InputTypes>('text');
-  public readonly inputPlaceholder = input<string>('');
+  // TO REDO LATER, SPLIT INTO THREE INPUTS TO AVOID INJETING THIS WHEN NOT NEEDED
+  @ViewChild('auto', { static: false }) public auto!: MatAutocomplete;
+  @ViewChild('auto', { static: false })
+  public pickerDateOfBirth!: MatDatepicker<Date>;
+
+  public readonly inputType = input.required<InputTypes>();
+  public readonly inputPlaceholder = input.required<string>();
   public readonly label = input<string>('');
   public readonly iconName = input<string>('');
-  public readonly inputName = input<string>('');
-  public readonly errorsValidators = input<Array<string>>([]);
+  public readonly inputName = input.required<string>();
+  public readonly withLabel = input<boolean>(true);
+  public readonly withAutocomplete = input<boolean>();
+  public readonly AutocompleteGroup = input<'gender' | 'specialty'>();
+  // Builds a dictionary with the specific error and the label for the translate
+  public readonly errorMap: Record<string, string> = {
+    required: 'errorHint.mandatory',
+    pattern: 'errorHint.email',
+    dateOrder: 'errorHint.dateOrder',
+    completeFullNameError: 'errorHint.fullName',
+    alphaNumeric: 'errorHint.alphaNumeric',
+    invalidCrm: 'errorHint.invalidCrm',
+    minlength: 'errorHint.minLength',
+    maxlength: 'errorHint.maxLength',
+  };
+  public selectedAutocompleteGroup?: Record<string, string>;
 
   // Inject the parent FromGroupDirective (this is done to avoid circular DI using ControlContainer and viewProvider)
   private readonly formGroupDirective = inject(FormGroupDirective);
@@ -42,15 +74,43 @@ export class PrimaryInputComponent implements ControlValueAccessor {
     return this.formGroupDirective.control as FormGroup;
   }
 
-  // Builds a dictionary with the specific error and the label for the translate
-  public readonly errorMap: Record<string, string> = {
-    required: 'errorHint.mandatory',
-    pattern: 'errorHint.email',
-    dateOrder: 'errorHint.dateOrder',
-    fullName: 'errorHint.fullName',
-    minlength: 'errorHint.minLength',
-    maxlength: 'errorHint.maxLength',
-  };
+  public get autocompleteOptions(): Record<
+    'gender' | 'specialty',
+    Record<string, string>
+  > {
+    return {
+      gender: {
+        male: this.translationConstants.translate('form.gender.male'),
+        female: this.translationConstants.translate('form.gender.female'),
+        ratherNotSay: this.translationConstants.translate(
+          'form.gender.ratherNotSay'
+        ),
+      },
+      specialty: {
+        cardiology: this.translationConstants.translate(
+          'form.specialty.cardiology'
+        ),
+        dermatology: this.translationConstants.translate(
+          'form.specialty.dermatology'
+        ),
+        neurology: this.translationConstants.translate(
+          'form.specialty.neurology'
+        ),
+        pediatrics: this.translationConstants.translate(
+          'form.specialty.pediatrics'
+        ),
+      },
+    };
+  }
+
+  constructor(public readonly translationConstants: TranslationConstants) {}
+
+  public ngOnInit(): void {
+    if (this.withAutocomplete() === true) {
+      this.selectedAutocompleteGroup =
+        this.autocompleteOptions[this.AutocompleteGroup()!];
+    }
+  }
 
   public get control(): AbstractControl | null {
     return this.form.get(this.inputName());

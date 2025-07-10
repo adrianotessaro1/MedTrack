@@ -5,25 +5,25 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.backend.common.config.JWTProperties;
 import com.example.backend.user.entity.User;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Service
+@NoArgsConstructor
 public class TokenService {
 
-    // Read the property from the application.properties and inject in the secret field
+    // Read the property from the application.yml and inject in the secret field
     // This secret will be used for signing and verifying tokens
-    @Value("${api.security.token.secret}")
-    private String secret;
+    private JWTProperties jwtProperties;
+
     public String generateToken(User user) {
         try {
             // HMAC-SHA256 as the signing algorithm so anyone without the secret will fail verification
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey());
 
             // JSON Web Token is a single string of three Base64Url encoded parts HEADER . PAYLOAD . SIGNATURE
             // .withIssuer - require that only tokens with that exact issuer will be accepted ("Was this issued by the service I trust?")
@@ -40,7 +40,7 @@ public class TokenService {
 
     public String validateToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey());
             // JWT.require(algorithm).withIssuer("login-auth-api") - make sure the signature must match
             // .build().verify(token) - verifies the token and if any checks fail, an exception is thrown
             // .getSubject() - returns the sub claim (user's email) so the security filter can look it up in the database
@@ -55,6 +55,7 @@ public class TokenService {
     }
 
     private Instant generateExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        Instant now = Instant.now();
+        return now.plus(jwtProperties.getAccessTokenTTl());
     }
 }

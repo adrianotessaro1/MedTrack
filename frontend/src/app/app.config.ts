@@ -14,6 +14,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { NgxMaskConfig, provideEnvironmentNgxMask } from 'ngx-mask';
 
 // Register the Angular locale data based on the user's browser language so date / numbers pipes respects the user's locale
 if (window.navigator.language.match(/^en/i)) {

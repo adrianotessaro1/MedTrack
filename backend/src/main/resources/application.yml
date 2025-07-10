@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  config:
+    import:
+      - "optional:dotenv:file:./.env" #Load the file .env from the JVM's working directory (project root)
+
+server:
+  port: 8443 #The port on which the server is listening
+  ssl:
+    key-store: classpath:springboot.p12 #Path to the key store that contains the SSL certificate
+    key-store-password: password #Password to access the key store
+    key-store-type: PKCS12
+    key-alias: springboot #How the key is identified in the key store
+    key-password: password #Password to access the key in the key store
+
+jwt:
+  access-token-ttl-minutes: 15m #15 minutes
+  refresh-token-ttl-days: 14d #14 days
+  secretKey: ${JTW_SECRET}

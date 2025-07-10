@@ -4,6 +4,8 @@
     "email": "Please enter a valid email address.",
     "dateOrder": "Start date must be before end date.",
     "fullName": "Please enter your first and last name.",
+    "alphaNumeric": "Only letters and spaces are allowed.",
+    "invalidCrm": "Invalid CRM number. Please enter a valid medical registration (CRM).",
     "minLength": "This field must be at least {{min}} characters long.",
     "maxLength": "This field cannot exceed {{max}} characters."
   },

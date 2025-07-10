@@ -30,11 +30,10 @@ main {
   .form-section {
     flex-grow: 0.25;
     padding: v.$space-m v.$space-l !important;
-    overflow-y: auto;
 
     img {
       margin-bottom: v.$space-xl;
-      width: 300px;
+      width: 280px;
     }
 
     h2 {

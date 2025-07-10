@@ -49,8 +49,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (login != null) {
             // Load the User from the database
             User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User not found"));
+
             // Builds a list of authorities (every user gets the role: "ROLE_USER")
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+
             // Creates an Authentication object (bundles up who you are, how you proved it, and what are you allowed to do) holding the user and their roles
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
 

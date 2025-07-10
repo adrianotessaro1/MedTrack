@@ -4,6 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  NgxMaskDirective,
+  NgxMaskPipe,
+  provideEnvironmentNgxMask,
+  provideNgxMask,
+} from 'ngx-mask';
 
 @NgModule({
   declarations: [],
@@ -13,6 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MaterialModule,
     TranslateModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   exports: [
     CommonModule,
@@ -20,6 +28,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MaterialModule,
     TranslateModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
+  providers: [provideNgxMask()],
 })
 export class SharedModule {}

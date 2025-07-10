@@ -1,0 +1,85 @@
+@use "./variables.scss" as v;
+
+//Autocomplete
+.mat-mdc-autocomplete-panel {
+  margin-top: v.$space-m;
+}
+
+//Stepper
+.mat-stepper-horizontal {
+  background: transparent !important;
+
+  .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 5px !important;
+  }
+}
+
+// Select Panel (.select-fill)
+.mat-mdc-select-panel.mdc-menu-surface.select-fill-panel {
+  font-size: 12px;
+  margin-top: 7px;
+  border-top: 1px solid v.$primary-500;
+  border-top-right-radius: 8px !important;
+  background-color: v.$dark;
+  padding: 20px 0;
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--main-text);
+    font-weight: 400;
+    font-family: Roboto, "Inter", sans-serif;
+
+    &:hover {
+      color: v.$primary-500;
+      text-decoration: underline;
+    }
+  }
+
+  .mat-mdc-option {
+    min-height: 32px !important;
+
+    .mat-pseudo-checkbox {
+      display: none;
+    }
+  }
+
+  .mat-mdc-option:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+// Select Panel (.select-fill-primary)
+.mat-mdc-select-panel.mdc-menu-surface.select-fill-primary {
+  font-size: 12px;
+  margin-top: 20px;
+  border-radius: 8px !important;
+  padding: 20px 0;
+  position: relative;
+  left: -15px;
+  height: auto;
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    font-size: 16px;
+    background-color: transparent;
+    color: v.$dark;
+    font-weight: 400;
+    font-family: Roboto, "Inter", sans-serif;
+  }
+
+  .mat-mdc-option {
+    min-height: 32px !important;
+
+    .mat-pseudo-checkbox {
+      display: none;
+    }
+  }
+
+  .mat-mdc-option:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
