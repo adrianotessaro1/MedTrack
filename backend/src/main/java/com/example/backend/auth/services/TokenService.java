@@ -41,9 +41,12 @@ public class TokenService {
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey());
-            // JWT.require(algorithm).withIssuer("login-auth-api") - make sure the signature must match
-            // .build().verify(token) - verifies the token and if any checks fail, an exception is thrown
-            // .getSubject() - returns the sub claim (user's email) so the security filter can look it up in the database
+
+            /**
+             * JWT.require(algorithm).withIssuer("login-auth-api") - make sure the signature must match
+             * .build().verify(token) - verifies the token and if any checks fail, an exception is thrown
+             * .getSubject() - returns the subclaim (user's email) so the security filter can look it up in the database
+             */
             return JWT.require(algorithm).withIssuer("login-auth-api").build().verify(token).getSubject();
         }
         catch(TokenExpiredException exception) {

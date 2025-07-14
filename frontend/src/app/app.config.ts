@@ -7,14 +7,14 @@ import {
 } from '@angular/core';
 import localeEn from '@angular/common/locales/en';
 import ptBr from '@angular/common/locales/pt';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideTranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { NgxMaskConfig, provideEnvironmentNgxMask } from 'ngx-mask';
+import { provideToastr } from 'ngx-toastr';
 
 // Register the Angular locale data based on the user's browser language so date / numbers pipes respects the user's locale
 if (window.navigator.language.match(/^en/i)) {
@@ -40,8 +40,9 @@ const userLang = window.navigator.language.toLocaleLowerCase().startsWith('en')
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideRouter(routes),
+    provideToastr(),
     provideAnimations(),
     { provide: LOCALE_ID, useValue: userLang },
     importProvidersFrom([

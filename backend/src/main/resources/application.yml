@@ -1,11 +1,32 @@
 spring:
   application:
     name: backend
+
+  profiles:
+    active: default
+
+  # Defines the JDBC connection to the medtrack database
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:postgresql://localhost:5432/medtrack
+    driver-class-name: org.postgresql.Driver
+    username: medtrack_user
+    password: Bp34syw2j@
+
+  # Disables the schema manager provided by Hibernate because Liquibase will handle the migrations
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Activates the liquibase and points to the master.xml
+  liquibase:
+    default-schema: public
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+
   config:
     import:
       - "optional:dotenv:file:./.env" #Load the file .env from the JVM's working directory (project root)
@@ -23,3 +44,5 @@ jwt:
   access-token-ttl-minutes: 15m #15 minutes
   refresh-token-ttl-days: 14d #14 days
   secretKey: ${JTW_SECRET}
+
+

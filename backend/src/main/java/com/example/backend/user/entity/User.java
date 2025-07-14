@@ -30,7 +30,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Size(max=100) @NotBlank
+    @Size(max=200) @NotBlank
     private String name;
 
     @Email @Size(max=200) @NotBlank

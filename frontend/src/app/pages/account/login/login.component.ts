@@ -5,6 +5,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { PrimaryInputComponent } from '../../../shared/components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { AccountService } from '../../../shared/services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,8 @@ export class LoginComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly accountService: AccountService
+    private readonly accountService: AccountService,
+    private readonly toastService: ToastrService
   ) {}
 
   public submit(): void {
@@ -45,11 +47,22 @@ export class LoginComponent {
       .login(this.loginForm.value.email!, this.loginForm.value.password!)
       .subscribe({
         next: () => {
-          console.log('success');
-          this.router.navigate(['/dashboard/patient'])
+          this.toastService.success('Login feito com sucesso!', 'Sucesso', {
+            closeButton: true,
+            positionClass: 'toast-top-left',
+          });
+          this.router.navigate(['/dashboard/patient']);
         },
         error: (error) => {
           console.error(error);
+          this.toastService.error(
+            'Erro inesperado, tente novamente mais tarde',
+            'Erro',
+            {
+              closeButton: true,
+              positionClass: 'toast-top-left',
+            }
+          );
         },
       });
   }

@@ -9,6 +9,7 @@ import com.example.backend.auth.exceptions.ResourceConflictException;
 import com.example.backend.auth.services.TokenService;
 import com.example.backend.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController
+@RestController // @Controller + @RequestBody
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
+    @Autowired
     private final UserRepository repository;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
     private final TokenService tokenService;
 
     @PostMapping("/login")
@@ -57,6 +63,7 @@ public class AuthController {
 
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<TokenRe>
+
+    //@PostMapping("/refresh")
+    // public ResponseEntity<TokenRe>
 }

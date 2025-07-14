@@ -1,5 +1,6 @@
 @use "./assets/styles/variables.scss" as v;
 @use "./assets/styles/common-classes.scss";
+@use "ngx-toastr/toastr";
 
 html,
 body {
