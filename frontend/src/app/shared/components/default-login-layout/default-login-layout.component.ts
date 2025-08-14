@@ -22,12 +22,4 @@ export class DefaultLoginLayoutComponent {
   // Signal-style emitter
   public readonly submit = output<void>();
   public readonly navigate = output<void>();
-
-  public onSubmit(): void {
-    this.submit.emit();
-  }
-
-  public onNavigate(): void {
-    this.navigate.emit();
-  }
 }

@@ -1,58 +1,80 @@
-<app-default-login-layout title="login.signupToAccount" primaryButtonText="Signup Now" secondaryButtonText="Login Now"
-    (submit)="submit()" (navigate)="navigate()" [disablePrimaryButton]="securityForm.invalid">
-    <mat-horizontal-stepper [linear]="true" #stepper>
-        <!-- STEP 0 - PATIENT OR DOCTOR -->
-        <mat-step>
-            <span>Are you a patient or a doctor?</span>
-            <div class="buttons-container">
-                <button class="btn primary">PATIENT</button>
-                <button class="btn secondary">DOCTOR</button>
-            </div>
-        </mat-step>
-        <!-- STEP 1 - Personal Information-->
-        <mat-step>
+<app-default-login-layout title="account.signup.signupToAccount">
+    <mat-horizontal-stepper [linear]="true" #stepper animationDuration="500">
+        <!-- STEP 0 - Personal Information-->
+        <mat-step [editable]="true" [stepControl]="personalInfoForm">
             <form [formGroup]="personalInfoForm">
+                <div class="input-wrapper">
+                    <label>{{'label.patientOrDoctor' | translate}}<span class="primary-red">
+                            *</span></label>
+                    <mat-radio-group formControlName="type" class="radio-group inline gap-100" required>
+                        <mat-radio-button value="doctor">{{ 'account.signup.doctor' | translate
+                            }}</mat-radio-button>
+                        <mat-radio-button value="patient">{{ 'account.signup.patient' | translate
+                            }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
                 <app-primary-input formControlName="name" iconName="app:person" inputName="name" inputType="text"
-                    label="Full Name" inputPlaceholder="Enter your full name..." [withLabel]="true"></app-primary-input>
-                <app-primary-input formControlName="dateOfBirth" iconName="app:calendar" inputName="dateOfBirth"
-                    inputType="text" label="Date of Birth" inputPlaceholder="Enter your date of birth..."
-                    [withLabel]="true"></app-primary-input>
+                    [label]="'label.fullName' | translate" [inputPlaceholder]="'placeholder.fullName' | translate" [withLabel]="true"></app-primary-input>
+                <app-datepicker-input formControlName="dateOfBirth" inputName="dateOfBirth"
+                    [label]="'label.dateOfBirth' | translate" [inputPlaceholder]="'placeholder.dateOfBirth' | translate"
+                    [withLabel]="true"></app-datepicker-input>
                 <app-primary-input formControlName="phone" iconName="app:phone" inputName="phone" inputType="text"
-                    label="Phone Number" inputPlaceholder="Enter your phone number..."
+                    [label]="'label.phoneNumber' | translate"[inputPlaceholder]="'placeholder.phoneNumber' | translate"
                     [withLabel]="true"></app-primary-input>
             </form>
         </mat-step>
-        <!-- STEP 2 - Patient / Doctor Specific Info-->
-        <mat-step *ngIf="isDoctor">
-            <form [formGroup]="doctorInfoForm">
+        <!-- STEP 1 - Patient / Doctor Specific Info-->
+        <mat-step [editable]="true"
+            [stepControl]="personalInfoForm.controls['type'].value === 'patient' ? patientInfoForm : doctorInfoForm">
+
+            <!-- Doctor Info -->
+            <form [formGroup]="doctorInfoForm" *ngIf="personalInfoForm.controls['type'].value === 'doctor'">
                 <app-primary-input formControlName="email" iconName="app:mail" inputName="email" inputType="email"
-                    label="Email" inputPlaceholder="Enter your email..." [withLabel]="true"></app-primary-input>
+                    [label]="'label.email' | translate" [inputPlaceholder]="'placeholder.email' | translate" [withLabel]="true"></app-primary-input>
                 <app-primary-input formControlName="CRM" iconName="app:medical_info" inputName="CRM" inputType="text"
-                    label="CRM" inputPlaceholder="Enter your CRM..." [withLabel]="true"></app-primary-input>
-                <app-primary-input formControlName="specialty" iconName="app:medical_services" inputName="specialty"
-                    inputType="text" label="Full Name" inputPlaceholder="Enter your full name..." [withLabel]="true"
-                    [withAutocomplete]="true" AutocompleteGroup="specialty"></app-primary-input>
+                    label="CRM" [inputPlaceholder]="'placeholder.CRM' | translate" [withLabel]="true"></app-primary-input>
+                <app-autocomplete-input formControlName="specialty" iconName="app:medical_services"
+                    inputName="specialty" inputType="text" [label]="'label.specialty' | translate" [inputPlaceholder]="'placeholder.specialty' | translate"
+                    [withLabel]="true" AutocompleteGroup="specialty"></app-autocomplete-input>
             </form>
-        </mat-step>
-        <mat-step *ngIf="!isDoctor">
-            <form [formGroup]="patientInfoForm">
+
+            <!-- Patient Info -->
+            <form [formGroup]="patientInfoForm" *ngIf="personalInfoForm.controls['type'].value === 'patient'">
                 <app-primary-input formControlName="email" iconName="app:mail" inputName="email" inputType="email"
-                    label="Email" inputPlaceholder="Enter your email..." [withLabel]="true"></app-primary-input>
-                <app-primary-input formControlName="gender" iconName="app:account_box" inputName="gender"
-                    inputType="text" label="Gender" inputPlaceholder="Enter your gender..." [withLabel]="true"
-                    [withAutocomplete]="true" AutocompleteGroup="gender"></app-primary-input>
+                    [label]="'label.email' | translate" [inputPlaceholder]="'placeholder.email' | translate" [withLabel]="true"></app-primary-input>
+                <app-autocomplete-input formControlName="gender" iconName="app:account_box" inputName="gender"
+                    inputType="text" [label]="'label.gender' | translate" [inputPlaceholder]="'placeholder.gender' | translate" [withLabel]="true"
+                    AutocompleteGroup="gender"></app-autocomplete-input>
             </form>
+
         </mat-step>
-        <!-- STEP 3 - Password (Security)-->
-        <mat-step>
+        <!-- STEP 2 - Password (Security)-->
+        <mat-step [editable]="true" [stepControl]="securityForm">
             <form [formGroup]="securityForm">
                 <app-primary-input formControlName="password" iconName="app:lock" inputName="password"
-                    inputType="password" label="Password" inputPlaceholder="Enter your password..."
+                    inputType="password" [label]="'label.password' | translate" [inputPlaceholder]="'placeholder.password' | translate"
                     [withLabel]="true"></app-primary-input>
                 <app-primary-input [withLabel]="false" formControlName="passwordConfirm" inputName="passwordConfirm"
-                    iconName="app:lock" inputType="password" label="Confirm your Password"
-                    inputPlaceholder="Confirm your password..."></app-primary-input>
+                    iconName="app:lock" inputType="password" [label]="'label.confirmYourPassword' | translate"
+                    [inputPlaceholder]="'placeholder.confirmPassword' | translate"></app-primary-input>
             </form>
         </mat-step>
     </mat-horizontal-stepper>
+    <div class="btn-wrapper">
+        <div class="inline gap-s wth-100">
+            <button class="btn secondary" [disabled]="currentStepperIndex === 0"
+                (click)="previousStepper()">{{'button.back' |
+                translate}}</button>
+            <button class="btn primary" [disabled]="disabledConfirmButton()"
+                (click)="currentStepperIndex === 2 ? submit() : nextStepper()">{{(currentStepperIndex === 2 ?
+                'button.signup' : 'button.continue') |
+                translate}}</button>
+        </div>
+        <div class="divider">
+            <div></div>
+            <span>{{'account.login.or' | translate}}</span>
+            <div></div>
+        </div>
+        <button class="btn secondary" (click)="goToLogin()">{{'button.login' | translate}}</button>
+    </div>
 </app-default-login-layout>

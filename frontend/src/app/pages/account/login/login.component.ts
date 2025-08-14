@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DefaultLoginLayoutComponent } from '../../../shared/components/default-login-layout/default-login-layout.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
-import { PrimaryInputComponent } from '../../../shared/components/primary-input/primary-input.component';
+import { PrimaryInputComponent } from '../../../shared/components/inputs/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { AccountService } from '../../../shared/services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -40,7 +40,7 @@ export class LoginComponent {
     private readonly router: Router,
     private readonly accountService: AccountService,
     private readonly toastService: ToastrService
-  ) {}
+  ) { }
 
   public submit(): void {
     this.accountService
@@ -67,7 +67,7 @@ export class LoginComponent {
       });
   }
 
-  public navigate(): void {
+  public goToSignup(): void {
     this.router.navigate(['/account/sign-up']);
   }
 }

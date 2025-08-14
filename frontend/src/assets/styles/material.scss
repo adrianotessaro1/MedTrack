@@ -2,19 +2,47 @@
 
 //Autocomplete
 .mat-mdc-autocomplete-panel {
+  background-color: v.$input-bg !important;
   margin-top: v.$space-m;
+  border-radius: v.$space-xxs !important;
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    font-size: 16px;
+    background-color: transparent;
+    color: v.$secondary-color;
+    font-weight: 400;
+    font-family: Roboto, "Inter", sans-serif;
+
+    &:hover {
+      color: v.$primary-500;
+      text-decoration: underline;
+    }
+  }
+
+  .mat-mdc-option {
+    min-height: 32px !important;
+  }
+
+  .mat-mdc-option:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 //Stepper
 .mat-stepper-horizontal {
   background: transparent !important;
+  width: 100%;
+
+  .mat-step-header {
+    display: none !important;
+  }
 
   .mat-horizontal-stepper-header-container {
     display: none !important;
   }
 
   .mat-horizontal-content-container {
-    padding: 5px !important;
+    padding: 2px !important;
   }
 }
 
@@ -30,7 +58,7 @@
   .mat-mdc-option .mdc-list-item__primary-text {
     font-size: 16px;
     background-color: transparent;
-    color: var(--main-text);
+    color: v.$secondary-color;
     font-weight: 400;
     font-family: Roboto, "Inter", sans-serif;
 
@@ -81,5 +109,206 @@
 
   .mat-mdc-option:not(:last-child) {
     margin-bottom: 20px;
+  }
+}
+
+//Calendar
+.mat-datepicker-popup {
+  .mat-datepicker-content {
+    border-radius: 6px !important;
+  }
+
+  .mat-calendar {
+    background-color: v.$input-bg;
+    border-radius: 8px;
+    margin-top: v.$space-xs;
+    height: 240px;
+  }
+
+  .mat-calendar-body-active
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+      .mat-calendar-body-comparison-identical
+    ) {
+    background-color: v.$primary-800 !important;
+    color: v.$color-text-secondary !important;
+  }
+}
+
+//Checkbox
+.mat-mdc-checkbox.checkbox-v-mark {
+  .mdc-label {
+    color: v.$color-text-primary;
+    font-size: v.$font-xs;
+    font-weight: 600;
+    line-height: 24px;
+    padding-left: 0;
+  }
+
+  &.internal-box {
+    .mdc-label {
+      @extend .mdc-label;
+    }
+
+    .mdc-checkbox__native-control:enabled ~ .mdc-checkbox__background {
+      border: 1px solid v.$medium-active !important;
+      border-radius: 4px;
+    }
+  }
+
+  .mdc-checkbox__native-control:enabled ~ .mdc-checkbox__background {
+    border: 1px solid v.$color-text-primary !important;
+  }
+
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background,
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:indeterminate
+    ~ .mdc-checkbox__background {
+    border-color: v.$primary-800 !important;
+    background-color: v.$primary-800 !important;
+  }
+}
+
+.mat-mdc-checkbox.radio-button-checkbox {
+  .mdc-checkbox__native-control:enabled ~ .mdc-checkbox__background {
+    border-radius: 50% !important;
+    border: 2px solid v.$primary-800 !important;
+    width: 20px;
+    height: 20px;
+  }
+
+  .mdc-checkbox__checkmark {
+    display: none !important;
+  }
+
+  .mdc-checkbox__native-control:checked
+    ~ .mdc-checkbox__background
+    .mdc-checkbox__mixedmark {
+    width: unset !important;
+    height: unset !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    border-color: v.$primary-800 !important;
+    opacity: unset !important;
+    border-width: 3px !important;
+  }
+
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
+  .mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background {
+    background-color: v.$light-grey !important;
+  }
+}
+
+//Radio Button
+.radio-group {
+  .mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-800 !important;
+  }
+
+  .mat-mdc-radio-button
+    .mdc-radio:hover
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-800 !important;
+  }
+
+  .mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled
+    + .mdc-radio__background
+    .mdc-radio__inner-circle {
+    border-color: v.$primary-800 !important;
+  }
+
+  .mat-mdc-radio-button
+    .mdc-radio__native-control:checked
+    + .mdc-radio__background
+    .mdc-radio__inner-circle {
+    transform: scale(0.3) !important;
+  }
+
+  .mat-mdc-radio-button
+    .mdc-radio:hover
+    .mdc-radio__native-control:enabled
+    + .mdc-radio__background
+    .mdc-radio__inner-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Hover
+  .mat-mdc-radio-button
+    .mdc-radio:hover
+    .mdc-radio__native-control:enabled:not(:checked)
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Not checked
+  .mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled:not(:checked)
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Active
+  .mat-mdc-radio-button
+    .mdc-radio:not(:disabled):active
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Active
+  .mat-mdc-radio-button
+    .mdc-radio:not(:disabled):active
+    .mdc-radio__native-control:enabled
+    + .mdc-radio__background
+    .mdc-radio__inner-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Active
+  .mat-mdc-radio-button
+    .mdc-radio:not(:disabled):active
+    .mdc-radio__native-control:enabled:not(:checked)
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: v.$primary-600 !important;
+  }
+
+  //Hover before
+  .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background::before {
+    background-color: transparent !important;
+  }
+
+  //Focus
+  .mat-mdc-radio-button
+    .mdc-radio:not(.mdc-ripple-upgraded):focus
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: transparent !important;
+  }
+
+  .mdc-label {
+    color: v.$color-text-primary;
+    font-weight: 500;
+    line-height: 20px;
+    font-size: 14px;
+    margin-bottom: 0 !important;
   }
 }

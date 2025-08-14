@@ -1,0 +1,31 @@
+<div class="input-wrapper">
+    <!-- LABEL -->
+    <label [for]="inputName()" *ngIf="withLabel()">{{label()}} <span *ngIf="mandatory()" class="primary-red">
+            *</span></label>
+    <!-- INPUT + ICON -->
+    <div class="input-content">
+
+        <input type="text" [value]="value" [placeholder]="inputPlaceholder()" (input)="onInput($event)" class="pointer-cursor"
+            [matAutocomplete]="auto" />
+
+        <div class="icon">
+            <mat-icon [svgIcon]="iconName()"></mat-icon>
+        </div>
+    </div>
+
+    <!-- AUTOCOMPLETE PANEL -->
+    <mat-autocomplete #auto="matAutocomplete" classList="autocomplete-panel" (optionSelected)="onOptionSelected($event)">
+        @for(option of selectedAutocompleteGroup | keyvalue; track option) {
+        <mat-option class="option" [value]="option.value">
+            <span class="text-option">{{ option.value | titlecase }}</span>
+        </mat-option>
+        }
+    </mat-autocomplete>
+
+    <!-- ERROR HINTS -->
+    @for (errorKey of errorKeys; track errorKey) {
+    <span class="error-hint" *ngIf="control!.hasError(errorKey) && (control?.touched || control?.dirty)">
+        {{errorMap[errorKey] | translate }}
+    </span>
+    }
+</div>

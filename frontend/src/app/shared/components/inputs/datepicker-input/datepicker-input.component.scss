@@ -1,4 +1,4 @@
-@use "./../../../../assets/styles/variables.scss" as v;
+@use "./../../../../../assets/styles/variables.scss" as v;
 
 .input-wrapper {
   color: v.$color-text-primary;
@@ -15,6 +15,10 @@
     border-radius: v.$space-xxs;
     display: flex;
 
+    .regular-cursor {
+      cursor: auto;
+    }
+
     .icon {
       display: flex;
       align-items: center;
@@ -22,6 +26,17 @@
       padding: v.$space-xs;
       background-color: v.$primary-color;
       border-radius: 0 v.$space-xxs v.$space-xxs 0;
+      min-width: 48px;
+      position: relative;
+
+      mat-datepicker-toggle.calendar-icon {
+        position: absolute;
+        right: 4px;
+
+        &.input-with-label {
+          top: 0px;
+        }
+      }
     }
 
     input {
@@ -30,6 +45,7 @@
       background-color: v.$input-bg;
       padding: v.$space-xs 0 v.$space-xs v.$space-sm;
       width: 100%;
+      position: relative;
     }
   }
 }

@@ -126,15 +126,14 @@
 					<changeLogFile>src/main/resources/db/changelog/master.xml</changeLogFile>
 
 					<!-- DB connection -->
-					<url>jdbc:postgresql://localhost:5432/medtrack</url>
-					<username>medtrack_user</username>
-					<password>Bp34syw2j@</password>
+					<url>${LIQUIBASE_URL}</url>
+					<username>${LIQUIBASE_USER}</username>
+					<password>${LIQUIBASE_PASSWORD}</password>
 					<driver>org.postgresql.Driver</driver>
 
 					<!-- apply your change-sets here -->
-					<defaultSchemaName>changelog</defaultSchemaName>
-					<!-- put Liquibase’s own tables here, too -->
-					<liquibaseSchemaName>changelog</liquibaseSchemaName>
+					<defaultSchemaName>public</defaultSchemaName>
+                    <liquibaseSchemaName>public</liquibaseSchemaName>
 				</configuration>
 			</plugin>
 		</plugins>

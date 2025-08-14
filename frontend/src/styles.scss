@@ -1,6 +1,8 @@
+@use "@angular/material" as mat;
 @use "./assets/styles/variables.scss" as v;
 @use "./assets/styles/common-classes.scss";
 @use "ngx-toastr/toastr";
+@use "./assets/styles/material.scss";
 
 html,
 body {

@@ -9,10 +9,57 @@
     "minLength": "This field must be at least {{min}} characters long.",
     "maxLength": "This field cannot exceed {{max}} characters."
   },
-  "login": {
-    "or": "or",
-    "title": "Connect with your doctor in minutes",
-    "loginToAccount": "Login into your account",
-    "signupToAccount": "Sign in and start today!"
+  "account": {
+    "login": {
+      "or": "or",
+      "title": "Connect with your doctor in minutes",
+      "loginToAccount": "Log in to your account"
+    },
+    "signup": {
+      "patient": "Patient",
+      "doctor": "Doctor",
+      "signupToAccount": "Sign up and get started today!"
+    }
+  },
+  "button": {
+    "signup": "Sign Up",
+    "login": "Log In",
+    "continue": "Continue",
+    "back": "Back"
+  },
+  "form": {
+    "specialty": {
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "dermatology": "Dermatology",
+      "pediatrics": "Pediatrics"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female",
+      "ratherNotSay": "Rather Not Say"
+    }
+  },
+  "label": {
+    "patientOrDoctor": "Are you a patient or a doctor?",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "dateOfBirth": "Date of Birth",
+    "email": "Email",
+    "gender": "Gender",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "specialty": "Specialty"
+  },
+  "placeholder": {
+    "fullName": "Enter your full name...",
+    "phoneNumber": "Enter your phone number...",
+    "dateOfBirth": "Select your date of birth...",
+    "email": "Enter your email address...",
+    "CRM": "Enter your CRM...",
+    "gender": "Select your gender",
+    "password": "Enter your password...",
+    "confirmPassword": "Confirm your password...",
+    "specialty": "Select your specialty"
   }
 }

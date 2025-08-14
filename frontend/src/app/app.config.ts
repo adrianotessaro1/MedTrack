@@ -1,5 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
   LOCALE_ID,
@@ -9,12 +10,14 @@ import localeEn from '@angular/common/locales/en';
 import ptBr from '@angular/common/locales/pt';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { TranslationConstants } from './shared/services/translation.service';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 // Register the Angular locale data based on the user's browser language so date / numbers pipes respects the user's locale
 if (window.navigator.language.match(/^en/i)) {
@@ -41,10 +44,23 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withFetch()),
+    TranslationConstants,
     provideRouter(routes),
     provideToastr(),
     provideAnimations(),
     { provide: LOCALE_ID, useValue: userLang },
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: userLang
+    },
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: LangHttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: userLang
+    }),
     importProvidersFrom([
       TranslateModule.forRoot({
         loader: {

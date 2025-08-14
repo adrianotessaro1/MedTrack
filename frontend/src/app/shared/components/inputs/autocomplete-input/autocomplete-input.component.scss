@@ -1,0 +1,51 @@
+@use "./../../../../../assets/styles/variables.scss" as v;
+
+.input-wrapper {
+  color: v.$color-text-primary;
+  font-size: v.$font-s;
+  text-align: start;
+  position: relative;
+
+  label {
+    margin-bottom: v.$space-s;
+  }
+
+  .input-content {
+    width: 100%;
+    border-radius: v.$space-xxs;
+    display: flex;
+
+    .pointer-cursor {
+      cursor: pointer;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: v.$space-xs;
+      background-color: v.$primary-color;
+      border-radius: 0 v.$space-xxs v.$space-xxs 0;
+      min-width: 48px;
+      position: relative;
+
+      mat-datepicker-toggle.calendar-icon {
+        position: absolute;
+        right: 4px;
+
+        &.input-with-label {
+          top: 0px;
+        }
+      }
+    }
+
+    input {
+      border: none;
+      border-radius: v.$space-xxs 0 0 v.$space-xxs;
+      background-color: v.$input-bg;
+      padding: v.$space-xs 0 v.$space-xs v.$space-sm;
+      width: 100%;
+      position: relative;
+    }
+  }
+}

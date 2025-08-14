@@ -1,0 +1,38 @@
+<div class="input-wrapper">
+    <!-- LABEL -->
+    <label [for]="inputName()" *ngIf="withLabel()">{{label()}} <span *ngIf="mandatory()" class="primary-red">
+            *</span></label>
+    <!-- INPUT + ICON + DATEPICKER -->
+    <div class="input-content">
+        @if (inputName() === 'phone') {
+        <input [type]="inputType()" [value]="value" [placeholder]="inputPlaceholder()" (input)="onInput($event)"
+            mask="(00) 00000-0000" />
+        } @else {
+        <input [type]="inputType()" [value]="value" [placeholder]="inputPlaceholder()" (input)="onInput($event)" />
+        }
+
+        <div class="icon">
+            <mat-icon [svgIcon]="iconName()"></mat-icon>
+        </div>
+    </div>
+
+    <!-- ERROR HINTS -->
+    @for (errorKey of errorKeys; track errorKey) {
+    <span class="error-hint" *ngIf="control!.hasError(errorKey) && (control?.touched || control?.dirty)">
+        @if (errorKey === 'minlength') {
+        {{
+        errorMap[errorKey]
+        | translate:{ min: control?.errors?.['minlength']?.requiredLength }
+        }}
+        } @else if (errorKey === 'maxlength') {
+        {{
+        errorMap[errorKey]
+        | translate:{ max: control?.errors?.['maxlength']?.requiredLength }
+        }}
+        } @else {
+        {{
+        errorMap[errorKey] | translate }}
+        }
+    </span>
+    }
+</div>

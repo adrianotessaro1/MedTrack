@@ -14,4 +14,5 @@ public class JWTProperties {
     private Duration accessTokenTTl;
     private Duration refreshTokenTTL;
     private String secretKey;
+    private String issuer;
 }

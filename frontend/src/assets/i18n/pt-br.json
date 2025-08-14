@@ -9,10 +9,57 @@
     "minLength": "Este campo deve ter pelo menos {{min}} caracteres.",
     "maxLength": "Este campo não pode exceder {{max}} caracteres."
   },
-  "login": {
-    "or": "ou",
-    "title": "Conecte-se com seu médico em minutos",
-    "loginToAccount": "Faça login na sua conta",
-    "signupToAccount": "Inscreva-se e comece hoje!"
+  "account": {
+    "login": {
+      "or": "ou",
+      "title": "Conecte-se com seu médico em minutos",
+      "loginToAccount": "Faça login na sua conta"
+    },
+    "signup": {
+      "patient": "Paciente",
+      "doctor": "Médico",
+      "signupToAccount": "Inscreva-se e comece hoje!"
+    }
+  },
+  "button": {
+    "signup": "Cadastrar-se",
+    "login": "Entrar",
+    "continue": "Continuar",
+    "back": "Voltar"
+  },
+  "form": {
+    "specialty": {
+      "cardiology": "Cardiologia",
+      "neurology": "Neurologista",
+      "dermatology": "Dermatologista",
+      "pediatrics": "Pediatria"
+    },
+    "gender": {
+      "male": "Homem",
+      "female": "Mulher",
+      "ratherNotSay": "Prefiro não informar"
+    }
+  },
+  "label": {
+    "patientOrDoctor": "Você é um paciente ou um médico?",
+    "fullName": "Nome completo",
+    "phoneNumber": "Número de telefone",
+    "dateOfBirth": "Data de nascimento",
+    "email": "E-mail",
+    "gender": "Gênero",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "specialty": "Especialidade"
+  },
+  "placeholder": {
+    "fullName": "Digite seu nome completo...",
+    "phoneNumber": "Digite seu número de telefone...",
+    "dateOfBirth": "Selecione sua data de nascimento...",
+    "email": "Digite seu e-mail...",
+    "CRM": "Digite seu CRM...",
+    "gender": "Selecione seu gênero",
+    "password": "Digite sua senha...",
+    "confirmPassword": "Confirme sua senha...",
+    "specialty": "Selecione sua especialidade"
   }
 }

@@ -42,64 +42,6 @@ main {
       margin-bottom: v.$space-xxl;
     }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: v.$space-sm;
-      width: 100%;
-
-      font-size: v.$font-xs;
-      color: v.$secondary-bg;
-      font-weight: 400;
-      text-transform: uppercase;
-
-      div {
-        flex-grow: 1;
-        height: 2px;
-        background-color: v.$secondary-bg;
-      }
-    }
-
-    .btn-wrapper {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      gap: v.$space-l;
-      button {
-        width: 100%;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 500;
-        border: none;
-        background-color: transparent;
-        padding: 12px 24px;
-        cursor: pointer;
-
-        &:disabled {
-          opacity: 0.75;
-          cursor: auto;
-        }
-
-        &.btn-primary {
-          background-color: v.$primary-color;
-          color: v.$color-text-secondary;
-          box-shadow: 0px 8px 12px
-            rgba(
-              148.23004603385925,
-              64.33935597538948,
-              255,
-              0.20000000298023224
-            );
-        }
-
-        &.btn-secondary {
-          border: 1px solid v.$primary-color;
-          color: v.$primary-color;
-        }
-      }
-    }
+    
   }
 }

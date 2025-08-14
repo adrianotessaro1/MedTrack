@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.backend.common.config.JWTProperties;
-import com.example.backend.user.entity.User;
+import com.example.backend.user.model.User;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +25,14 @@ public class TokenService {
             // HMAC-SHA256 as the signing algorithm so anyone without the secret will fail verification
             Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey());
 
-            // JSON Web Token is a single string of three Base64Url encoded parts HEADER . PAYLOAD . SIGNATURE
-            // .withIssuer - require that only tokens with that exact issuer will be accepted ("Was this issued by the service I trust?")
-            // .withSubject - what will be retrieved in each request to look up the user (email in this case)
-            // .withExpiresAt - After a certain time, the verification will fail with that token
-            // .sign(algorithm) - Creates the header {alg: "HS256", typ: "JWT" } and payload, encodes both and computes the signature using the secret and then encodes it
-            String token = JWT.create().withIssuer("login-auth-api").withSubject(user.getEmail()).withExpiresAt(this.generateExpirationDate()).sign(algorithm);
+            /**
+             * JSON Web Token is a single string of three Base64Url encoded parts HEADER . PAYLOAD . SIGNATURE
+             * .withIssuer - require that only tokens with that exact issuer will be accepted ("Was this issued by the service I trust?")
+             * .withSubject - what will be retrieved in each request to look up the user (email in this case)
+             * .withExpiresAt - After a certain time, the verification will fail with that token
+             * .sign(algorithm) - Creates the header {alg: "HS256", typ: "JWT" } and payload, encodes both and computes the signature using the secret and then encodes it
+             */
+            String token = JWT.create().withIssuer(jwtProperties.getIssuer()).withSubject(user.getEmail()).withExpiresAt(this.generateExpirationDate()).sign(algorithm);
 
             return token;
         } catch (JWTCreationException exception) {
@@ -43,11 +45,11 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey());
 
             /**
-             * JWT.require(algorithm).withIssuer("login-auth-api") - make sure the signature must match
+             * JWT.require(algorithm).withIssuer() - make sure the signature must match
              * .build().verify(token) - verifies the token and if any checks fail, an exception is thrown
              * .getSubject() - returns the subclaim (user's email) so the security filter can look it up in the database
              */
-            return JWT.require(algorithm).withIssuer("login-auth-api").build().verify(token).getSubject();
+            return JWT.require(algorithm).withIssuer(jwtProperties.getIssuer()).build().verify(token).getSubject();
         }
         catch(TokenExpiredException exception) {
             throw exception;

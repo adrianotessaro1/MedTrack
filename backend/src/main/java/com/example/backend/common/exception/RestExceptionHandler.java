@@ -3,11 +3,17 @@ package com.example.backend.common.exception;
 import com.example.backend.auth.exceptions.InvalidCredentialsException;
 import com.example.backend.auth.exceptions.ResourceConflictException;
 import com.example.backend.auth.exceptions.TokenExpiredException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.stream.Collectors;
 
 /**
  * @RestControllerAdvice tells Spring:
@@ -42,6 +48,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDTO> handleTokenExpiredException(TokenExpiredException exception) {
         ErrorDTO body = new ErrorDTO("TOKEN_EXPIRED", "Your session has expired. Please log in again");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException exception,
+            HttpHeaders headers,
+            HttpStatusCode status,
+            WebRequest request) {
+        String message = exception
+                .getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage()) // "fieldName: message"
+                .collect(Collectors.joining("; ")); // Combines the strings into a single String, separating each with ";"
+        ErrorDTO body = new ErrorDTO("VALIDATION_ERROR", message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
     /**

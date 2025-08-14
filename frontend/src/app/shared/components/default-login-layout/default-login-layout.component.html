@@ -3,19 +3,9 @@
         <img src="/assets/images/logo.png" alt="Logo">
         <h2>{{title() | translate}}</h2>
         <ng-content></ng-content>
-        <div class="btn-wrapper">
-            <button class="btn-primary" [disabled]="disablePrimaryButton()"
-                (click)="onSubmit()">{{primaryButtonText()}}</button>
-            <div class="divider">
-                <div></div>
-                <span>{{'login.or' | translate}}</span>
-                <div></div>
-            </div>
-            <button class="btn-secondary" (click)="onNavigate()">{{secondaryButtonText()}}</button>
-        </div>
     </section>
     <section class="main-section">
-        <h1>{{'login.title' | translate}}</h1>
+        <h1>{{'account.login.title' | translate}}</h1>
         <img src="/assets/images/login-main.svg" alt="Main Illustration">
     </section>
 </main>

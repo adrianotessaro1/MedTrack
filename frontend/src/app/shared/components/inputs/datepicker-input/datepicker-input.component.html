@@ -1,0 +1,28 @@
+<div class="input-wrapper">
+    <!-- LABEL -->
+    <label [for]="inputName()" *ngIf="withLabel()">{{label()}} <span *ngIf="mandatory()" class="primary-red">
+            *</span></label>
+    <!-- INPUT + ICON + DATEPICKER -->
+    <div class="input-content">
+        <input matInput type="text" [value]="value" [placeholder]="inputPlaceholder()"
+            [matDatepicker]="pickerDateOfBirth" readonly class="regular-cursor" [matDatepickerFilter]="dateFilter"
+            (dateChange)="onDateSelected($event.value)" />
+        <div class="icon">
+
+            <!-- calendar toggle only if dateOfBirth -->
+            <div class="calendar">
+                <mat-datepicker-toggle matSuffix [for]="pickerDateOfBirth" class="calendar-icon input-with-label">
+                    <mat-icon matDatepickerToggleIcon svgIcon="app:calendar"></mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker class="calendar-primary" #pickerDateOfBirth disabled="false"></mat-datepicker>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERROR HINTS -->
+    @for (errorKey of errorKeys; track errorKey) {
+    <span class="error-hint" *ngIf="control!.hasError(errorKey) && (control?.touched || control?.dirty)">
+        {{errorMap[errorKey] | translate }}
+    </span>
+    }
+</div>

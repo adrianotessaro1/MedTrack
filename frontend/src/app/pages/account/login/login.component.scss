@@ -14,3 +14,31 @@ form {
     text-align: end;
   }
 }
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-sm;
+  width: 100%;
+
+  font-size: v.$font-xs;
+  color: v.$secondary-bg;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  div {
+    flex-grow: 1;
+    height: 2px;
+    background-color: v.$secondary-bg;
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-l;
+}
